@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace : 接口的全路径-->
+<mapper namespace="com.atguigu.gmall.product.mapper.SkuSaleAttrValueMapper">
+    <!--定义映射结果集.-->
+    <resultMap id="SkuSaleAttrValueMap" type="java.util.Map" autoMapping="true">
+
+    </resultMap>
+
+    <select id="selectSkuValueIdsMap" resultMap="SkuSaleAttrValueMap">
+        select sku_id, group_concat(sale_attr_value_id order by id separator '|') value_ids
+           from sku_sale_attr_value
+           where spu_id = #{spuId}
+           group by sku_id
+    </select>
+</mapper>

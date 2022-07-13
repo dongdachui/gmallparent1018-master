@@ -1,0 +1,44 @@
+package com.atguigu.gmall.activity.client;
+
+import com.atguigu.gmall.activity.client.impl.ActivityDegradeFeignClient;
+import com.atguigu.gmall.common.result.Result;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Map;
+
+/**
+ * author:atGuiGu-mqx
+ * date:2022/5/20 14:13
+ * 描述：
+ **/
+@FeignClient(value = "service-activity",fallback = ActivityDegradeFeignClient.class)
+public interface ActivityFeignClient {
+
+    //  将查询列表以及详情接口发布到feign 上
+    /**
+     * 返回全部列表
+     *
+     * @return
+     */
+    @GetMapping("/api/activity/seckill/findAll")
+    Result findAll();
+
+    /**
+     * 获取实体
+     *
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/api/activity/seckill/getSeckillGoods/{skuId}")
+    Result getSeckillGoods(@PathVariable("skuId") Long skuId);
+
+    /**
+     * 秒杀订单
+     * @return
+     */
+    @GetMapping("/api/activity/seckill/auth/trade")
+    Result<Map> trade();
+
+}
